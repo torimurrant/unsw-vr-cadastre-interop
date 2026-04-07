@@ -10,30 +10,16 @@ using Esri.GameEngine.Geometry;
 using Esri.Unity;
 using Esri.GameEngine.Elevation;
 
-public class I3SImporter_WebAPI : MonoBehaviour
+public class I3SImporter : MonoBehaviour
 {
-    [Header("Connection")]
+    [Header("File")]
     [Tooltip("ArcGIS Online API Key")]
-    public string apiKey = "YOUR_API_KEY_HERE";
+    public string apiKey = "ADD API KEY HERE";
     [Tooltip("REST Endpoint URL")]
-    public string layerSource = "https://tiles.arcgis.com/tiles/YOUR_ORG/arcgis/rest/services/SP101583/SceneServer";
-    [Tooltip("Layer Display Name")]
-    public string layerName = "SP101583_I3S";
+    public string layerSource = "ADD URL HERE";
     [Tooltip(Layer Opacity (0-1).")]f
     [Range(0f, 1f)]
     public float layerOpacity = 1.0f;
-
-    [Header("Map Settings")]
-    [Tooltip("Origin Longitude")]
-    public double originLongitude = 151.76675;
-    [Tooltip("Origin Latitude")]
-    public double originLatitude = -32.92564;
-    [Tooltip("Origin Altitude (m)")]
-    public double originAltitude = 0.0;
-    [Tooltip("Add basemap?")]
-    public bool addBasemap = true;
-    [Tooltip("Add elevation surface?")]
-    public bool addElevation = true;
 
     [Header("Geometry")]
     [Tooltip("Total vertices")]
@@ -47,15 +33,16 @@ public class I3SImporter_WebAPI : MonoBehaviour
     [Tooltip("Geometric errors detected")]
     public string geometricErrors = "None";
 
-    [Header("Attributes")]
+    [Header("Semantic")]
     [Tooltip("Attribute fields present")]
     public string attributeFieldsRetained = "";
-    [Tooltip("Attribute retention status")]
-    public string attributeRetention = "";
 
-    [Tooltip("Time from Start() to layer visible in scene (seconds).")]
+    [Header("Performance")]
+    [Tooltip("Import time")]
     public float importTimeSeconds = 0f;
+    [Tooltip("Frames per second")]
     public float currentFPS = 0f;
+    [Tooltip("RAM usage (mb)")]
     public float ramUsageMB = 0f;
 
     private ArcGISMapComponent mapComponent;
@@ -101,7 +88,7 @@ public class I3SImporter_WebAPI : MonoBehaviour
         }
 
         var sceneLayer = new ArcGIS3DObjectSceneLayer(
-            layerSource, layerName, layerOpacity, true, apiKey);
+            layerSource, layerOpacity, true, apiKey);
         arcGISMap.Layers.Add(sceneLayer);
         mapComponent.Map = arcGISMap;
         Camera mainCam = Camera.main;
